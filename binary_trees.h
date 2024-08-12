@@ -7,6 +7,10 @@
 /* ------------------- */
 
 /* ↓ STRUCTS AND MISC ↓ */
+#ifndef IS_LEAF
+#define IS_LEAF(n) !(n == NULL || (n->left != NULL || n->right != NULL))
+
+#endif /* IS_LEAF */
 
 /* Basic Binary Tree */
 /**
