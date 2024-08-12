@@ -15,34 +15,42 @@ void binary_tree_delete(binary_tree_t *tree)
 		return;
 
 	if (currentNode->left != NULL)
-		currentNode = currentNode->left;
+		binary_tree_delete(currentNode->left);
 	else if (currentNode->right != NULL)
-		currentNode = currentNode->right;
+		binary_tree_delete(currentNode->right);
 	else
 	{
-		currentNode = currentNode->parent;
-		if (currentNode != NULL)
+		if (currentNode->parent == NULL)
 		{
-			if (IS_LEAF(currentNode->left))
+			free(currentNode);
+			currentNode = NULL;
+		}
+		else
+		{
+			currentNode = currentNode->parent;
+			if (currentNode != NULL)
 			{
-				free(currentNode->left);
-				currentNode->left = NULL;
-			}
-			else if (IS_LEAF(currentNode->right))
-			{
-				free(currentNode->right);
-				currentNode->right = NULL;
-			}
-			/*else*/
-			/*	printf("Something went wrong.\n");*/
-			if (currentNode->parent == NULL)
-			{
-				free(currentNode);
-				currentNode = NULL;
+				if (IS_LEAF(currentNode->left))
+				{
+					free(currentNode->left);
+					currentNode->left = NULL;
+				} else if (IS_LEAF(currentNode->right))
+				{
+					free(currentNode->right);
+					currentNode->right = NULL;
+				}
+				/*else*/
+				/*	printf("Something went wrong.\n");*/
+				if (currentNode->parent == NULL)
+				{
+					free(currentNode);
+					currentNode = NULL;
+				}
 			}
 		}
+		binary_tree_delete(currentNode);
 	}
-	binary_tree_delete(currentNode);
+
 }
 
 /*binary_tree_t *get_root(binary_tree_t *node)
