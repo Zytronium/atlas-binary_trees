@@ -35,6 +35,11 @@ void binary_tree_delete(binary_tree_t *tree)
 			}
 			/*else*/
 			/*	printf("Something went wrong.\n");*/
+			if (currentNode->parent == NULL)
+			{
+				free(currentNode);
+				currentNode = NULL;
+			}
 		}
 	}
 	binary_tree_delete(currentNode);
