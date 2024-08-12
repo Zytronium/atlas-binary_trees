@@ -12,7 +12,7 @@ void binary_tree_delete(binary_tree_t *tree)
 	if (tree == NULL)
 		return;
 
-	while (currentNode->parent != NULL)
+	while (currentNode != NULL)
 	{
 		if (currentNode->left != NULL)
 			currentNode = currentNode->left;
@@ -21,7 +21,8 @@ void binary_tree_delete(binary_tree_t *tree)
 		else
 		{
 			binary_tree_t *prevNode = currentNode;
-			currentNode = currentNode->parent;
+			if (currentNode->parent != NULL)
+				currentNode = currentNode->parent;
 			free(prevNode);
 		}
 	}
